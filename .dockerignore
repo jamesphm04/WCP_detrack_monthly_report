@@ -1,0 +1,6 @@
+cmd/sandbox/*
+*.csv
+*.DS_Store
+*.json
+*.md
+*.MD
