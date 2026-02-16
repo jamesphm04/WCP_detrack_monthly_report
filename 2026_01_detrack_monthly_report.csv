@@ -1,9 +1,0 @@
-run_number,num_orders_delivered,num_parts_delivered,num_orders_picked_up,num_parts_picked_up,freight_revenue
-WCPSOUTH - 8:00 AM,129,137,15,15,3574.760
-WCPNORTH - 8:00AM,105,113,5,4,3187.430
-,16,22,3,3,452.760
-22/01/26 SOUTH 8AM,12,14,0,0,487.290
-WCPSOUTH - 10:30 AM,89,102,16,16,2981.060
-WCPNORTH - 12:00 PM,70,73,12,12,2434.660
-WCPSOUTH - 1:00 PM,48,51,13,13,1281.930
-WCPSOUTH - 3:30,6,6,0,0,140.920
