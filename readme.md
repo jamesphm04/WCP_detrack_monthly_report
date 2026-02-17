@@ -77,10 +77,14 @@ docker run -d `
 
 - When your run docker, there is might be an error with DNS, just run that again.
 
-## DEPLOY
+# Deploying on AWS
 
-export IAM_USER=$(aws iam get-user --query "User.UserName" --output text)
+Deploying on AWS is quite easy:
 
-aws iam attach-user-policy \
- --user-name $IAM_USER \
- --policy-arn arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryPowerUser
+![Infrastructure Diagram](assets/infra.png)
+
+Run the following command to deploy:
+
+```bash
+make deploy
+```
