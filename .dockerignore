@@ -4,3 +4,14 @@ cmd/sandbox/*
 *.json
 *.md
 *.MD
+.env
+.env.*
+*.env
+.git
+.gitignore
+README.md
+tmp/
+bin/
+*.sh
+/infra/*
+/scripts/*

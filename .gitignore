@@ -3,3 +3,4 @@
 *.xlsx
 *.csv
 *.xls
+create_secrets.sh

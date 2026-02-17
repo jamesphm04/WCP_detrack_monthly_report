@@ -1,0 +1,35 @@
+{
+  "family": "wcp-detrack-monthly-report",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "256",
+  "memory": "512",
+  "executionRoleArn": "arn:aws:iam::380206744475:role/ecsTaskExecutionRole",
+  "containerDefinitions": [
+    {
+      "name": "wcp-detrack-monthly-report",
+      "image": "380206744475.dkr.ecr.ap-southeast-2.amazonaws.com/wcp-detrack-monthly-report:latest",
+      "essential": true,
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/wcp-detrack-monthly-report",
+          "awslogs-region": "ap-southeast-2",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "environment": [
+        {"name": "BASE_URL", "value": "https://app.detrack.com/api/v2"},
+        {"name": "FETCH_LIMIT", "value": "1000"},
+        {"name": "SMTP_HOST", "value": "smtp.gmail.com"},
+        {"name": "SMTP_PORT", "value": "587"}
+      ],
+      "secrets": [
+        {"name": "API_KEY", "valueFrom": "arn:aws:secretsmanager:ap-southeast-2:380206744475:secret:wcp-detrack-monthly-report-api-key-2ikuu0"},
+        {"name": "EMAIL_SENDER", "valueFrom": "arn:aws:secretsmanager:ap-southeast-2:380206744475:secret:wcp-detrack-monthly-report-email-sender-OhTbOs"},
+        {"name": "EMAIL_PASSWORD", "valueFrom": "arn:aws:secretsmanager:ap-southeast-2:380206744475:secret:wcp-detrack-monthly-report-email-password-9bwsSB"},
+        {"name": "EMAIL_RECEIVERS", "valueFrom": "arn:aws:secretsmanager:ap-southeast-2:380206744475:secret:wcp-detrack-monthly-report-email-receivers-2VYMEX"}
+      ]
+    }
+  ]
+}

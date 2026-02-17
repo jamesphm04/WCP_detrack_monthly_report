@@ -87,9 +87,9 @@ func (c *DetrackClient) GetJobs() ([]Job, error) {
 			return nil, err
 		}
 
-		// Log the raw JSON response
-		rawJSON := string(body)
-		c.Logger.Debug("Raw API response", zap.String("raw", rawJSON))
+		// // Log the raw JSON response
+		// rawJSON := string(body)
+		// c.Logger.Debug("Raw API response", zap.String("raw", rawJSON))
 
 		if resp.StatusCode != http.StatusOK {
 			c.Logger.Error("API returned non-200 status",
