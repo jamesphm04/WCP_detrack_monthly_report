@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"strconv"
 	"time"
 
@@ -203,12 +204,11 @@ func main() {
 		if job.Type == "Delivery" {
 			entry.NumOrdersDelivered++
 			entry.NumPartsDelivered += int(job.ItemCount)
-			entry.FreightRevenue += freightFloat64
 		} else {
 			entry.NumOrdersPickedUp++
 			entry.NumPartsPickedUp += int(job.ItemCount)
-			entry.FreightRevenue += freightFloat64
 		}
+		entry.FreightRevenue += freightFloat64
 	}
 
 
@@ -249,8 +249,20 @@ func main() {
 	}
 
 	// Pour Report data
+	totalNumOrdersDelivered := 0
+	totalNumPartsDelivered := 0
+	totalNumOrdersPickedUp := 0
+	totalNumPartsPickedUp := 0
+	totalFreightRevenue := 0.0
+
 	reportStartRow := 2
 	for _, reportEntry := range reportSlice {
+		totalNumOrdersDelivered += reportEntry.NumOrdersDelivered
+		totalNumPartsDelivered += reportEntry.NumPartsDelivered
+		totalNumOrdersPickedUp += reportEntry.NumOrdersPickedUp
+		totalNumPartsPickedUp += reportEntry.NumPartsPickedUp
+		totalFreightRevenue += reportEntry.FreightRevenue
+
 		f.SetCellValue(reportSheet, fmt.Sprintf("A%d", reportStartRow), reportEntry.RunNumber)
 		f.SetCellValue(reportSheet, fmt.Sprintf("B%d", reportStartRow), reportEntry.NumOrdersDelivered)
 		f.SetCellValue(reportSheet, fmt.Sprintf("C%d", reportStartRow), reportEntry.NumPartsDelivered)
@@ -260,8 +272,18 @@ func main() {
 		reportStartRow++
 	}
 
+	// Add total values 
+	f.SetCellValue(reportSheet, fmt.Sprintf("A%d", reportStartRow), "TOTAL")
+	f.SetCellValue(reportSheet, fmt.Sprintf("B%d", reportStartRow), totalNumOrdersDelivered)
+	f.SetCellValue(reportSheet, fmt.Sprintf("C%d", reportStartRow), totalNumPartsDelivered)
+	f.SetCellValue(reportSheet, fmt.Sprintf("D%d", reportStartRow), totalNumOrdersPickedUp)
+	f.SetCellValue(reportSheet, fmt.Sprintf("E%d", reportStartRow), totalNumPartsPickedUp)
+	f.SetCellValue(reportSheet, fmt.Sprintf("F%d", reportStartRow), totalFreightRevenue)
+
 	// Save xlsx file 
-	reportPath := fmt.Sprintf("detrack_report_%s_to_%s.xlsx",
+	os.Mkdir("./data", 0755)
+
+	reportPath := fmt.Sprintf("./data/detrack_report_%s_to_%s.xlsx",
 		fromDate.Format("2006-01-02"),
 		toDate.Format("2006-01-02"),
 	)
